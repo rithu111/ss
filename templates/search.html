@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Student</title>
+</head>
+<body>
+    <h1>Search Student</h1>
+    <form action="/search" method="post">
+        <label for="search_name">Enter Name:</label>
+        <input type="text" id="search_name" name="search_name">
+        <input type="submit" value="Search">
+    </form>
+    
+   <!-- ... (other HTML content) ... -->
+<div id="search_results" style="display: none;">
+    <!-- Search results will be displayed here -->
+    <p id="search_result"></p>
+    <a href="#" id="go_to_home">Go to Home</a>
+</div>
+
+<script>
+    const searchForm = document.querySelector('form');
+    const searchResults = document.getElementById('search_results');
+    const searchResultText = document.getElementById('search_result');
+    const goToHomeLink = document.getElementById('go_to_home');
+
+    searchForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const searchName = document.getElementById('search_name').value;
+
+        // Make an AJAX request to fetch search results
+        const response = await fetch('/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `search_name=${searchName}`,
+        });
+
+        const result = await response.text();
+
+        // Display the search results and result text
+        searchResultText.textContent = result;
+        searchResults.style.display = 'block';
+    });
+
+    goToHomeLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        searchResults.style.display = 'none'; // Hide search results
+        window.location.href = '/'; // Go to home page
+    });
+</script>
+<!-- ... (other HTML content) ... -->
+
+</body>
+</html>

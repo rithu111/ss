@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Student</title>
+</head>
+<body>
+    <form id="deleteForm" action="/delete2" method="post">
+        <label for="confirm_delete">Are you sure you want to delete?</label>
+        <input type="checkbox" id="confirm_delete" name="confirm_delete" value="true"><br><br>
+        
+        <label for="search_name">Confirm Name:</label>
+        <input type="text" id="search_name" name="search_name"><br><br>
+        
+        <input type="submit" value="Delete">
+    </form>
+    <div id="deleteMessage" style="display: none;"></div>
+    <a href="/">Go to Home</a>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+    
+</body>
+</html>
